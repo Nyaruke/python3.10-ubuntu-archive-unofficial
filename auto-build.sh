@@ -32,6 +32,7 @@ clean_env() {
     run_command "rm -rf ${TARGET_PYTHON_TARBALL}"
     run_command "rm -rf Python-${TARGET_PYTHON_VERSION}"
     run_command "rm -rf DEBIAN"
+    run_command "rm -rf python3.10.deb"
 }
 
 install_dep() {
@@ -117,7 +118,7 @@ create_package() {
     run_command "cd .."
 
     echo "[+] Moving data ..."
-    run_command "mv /tmp/usr ./"
+    run_command "mv /tmp/usr ./"s
 
     echo "[+] Creating control file ..."
     echo "Package: python3.10" > DEBIAN/control
@@ -127,7 +128,7 @@ create_package() {
     echo "Description: Unofficial Python 3.10" >> DEBIAN/control
 
     echo "[+] Creating target python${TARGET_PYTHON_VERSION} .deb file"
-    dpkg-deb --build "./" "python3.10.deb"
+    run_command "dpkg-deb --build ./ python3.10.deb"
     echo "[+] Done!"
 
 }
@@ -136,7 +137,7 @@ install_package() {
     echo "Installing the created package?(y): "
     read ASK_INSTALL
     if  [ "$ASK_INSTALL" != "n" ]; then
-        sudo dpkg -i "python3.10.deb"
+        run_command "sudo dpkg -i python3.10.deb"
     fi
 }
 
