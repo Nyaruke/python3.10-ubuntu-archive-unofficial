@@ -25,16 +25,46 @@ run_command() {
     fi
 }
 
-setup_env() {
-    echo "clean ..."
+clean_env() {
+    echo "Delete the old directory and source code..."
     run_command "rm -rf usr"
     run_command "rm -rf ${TARGET_PYTHON_TARBALL}"
     run_command "rm -rf Python-${TARGET_PYTHON_VERSION}"
 }
 
+install_dep() {
+    echo "Installing dependencies ..."
+    run_command "sudo apt update -y"
+    run_command "sudo apt install -y \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    wget \
+    curl \
+    llvm \
+    libncurses5-dev \
+    libncursesw5-dev \
+    xz-utils \
+    tk-dev \
+    libxml2-dev \
+    libxmlsec1-dev \
+    libffi-dev \
+    liblzma-dev"
+}
+
+prepare_build() {
+    echo "Downloading source tarball ${TARGET_PYTHON_TARBALL} ..."
+    wget "${TARGET_PYTHON_TARBALL_URL}"
+}
+
 main() {
     setup_color
-    setup_env
+    clean_env
+    install_dep
+    prepare_build
 }
 
 main
