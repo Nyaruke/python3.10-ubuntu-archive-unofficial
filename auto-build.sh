@@ -52,6 +52,10 @@ install_dep() {
     libxml2-dev \
     libxmlsec1-dev \
     libffi-dev \
+    gcc \
+    make \
+    automake \
+    autoconf \
     liblzma-dev"
 }
 
@@ -73,7 +77,7 @@ run_build() {
     echo "[+] Running python${TARGET_PYTHON_VERSION} configure script ..."
     run_command "./configure \
 	ax_cv_c_float_words_bigendian=no \
-	--prefix=./usr \
+	--prefix=usr \
 	--enable-shared \
 	--with-computed-gotos \
 	--enable-optimizations \
