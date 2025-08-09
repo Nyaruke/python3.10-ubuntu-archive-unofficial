@@ -125,7 +125,21 @@ create_package() {
     echo "Maintainer: $USER" >> DEBIAN/control
     echo "Architecture: all" >> DEBIAN/control
     echo "Description: Unofficial Python 3.10" >> DEBIAN/control
+
+    echo "[+] Creating target python${TARGET_PYTHON_VERSION} .deb file"
+    dpkg-deb --build "./" "python3.10.deb"
+    echo "[+] Done!"
+
 }
+
+install_package() {
+    echo "Installing the created package?(y): "
+    read ASK_INSTALL
+    if  [ "$ASK_INSTALL" != "n" ]; then
+        sudo dpkg -i "python3.10.deb"
+    fi
+}
+
 
 main() {
     setup_color
@@ -134,6 +148,8 @@ main() {
     prepare_build
     run_build
     create_package
+    install_package
+    exit 0
 }
 
 main
