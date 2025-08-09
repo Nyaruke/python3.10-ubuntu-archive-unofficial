@@ -118,7 +118,7 @@ create_package() {
     run_command "cd .."
 
     echo "[+] Moving data ..."
-    run_command "mv /tmp/usr ./"s
+    run_command "mv /tmp/usr ./"
 
     echo "[+] Creating control file ..."
     echo "Package: python3.10" > DEBIAN/control
