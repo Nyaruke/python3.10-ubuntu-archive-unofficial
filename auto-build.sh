@@ -28,6 +28,7 @@ run_command() {
 clean_env() {
     echo "[+] Delete the old directory and source code..."
     run_command "rm -rf /tmp/usr"
+    run_command "rm -rf usr"
     run_command "rm -rf ${TARGET_PYTHON_TARBALL}"
     run_command "rm -rf Python-${TARGET_PYTHON_VERSION}"
 }
@@ -92,6 +93,20 @@ run_build() {
 
    echo "[+] Starting build ..."
    run_command "make -j$(nproc)"
+
+   echo "[+] Leaving directory Python-${TARGET_PYTHON_VERSION}"
+   run_command "cd .."
+}
+
+create_package() {
+    echo "[+] Entering directory Python-${TARGET_PYTHON_VERSION}"
+    run_command "cd Python-${TARGET_PYTHON_VERSION}"
+
+    echo "[+] Installing ..."
+    run_command "make altinstall"
+
+    echo "[+] Moving data ..."
+    run_command "mv /tmp/usr ./"
 }
 
 main() {
@@ -100,6 +115,7 @@ main() {
     install_dep
     prepare_build
     run_build
+    create_package
 }
 
 main
