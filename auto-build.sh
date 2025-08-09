@@ -110,7 +110,7 @@ create_package() {
     echo "[+] Entering directory Python-${TARGET_PYTHON_VERSION}"
     run_command "cd Python-${TARGET_PYTHON_VERSION}"
 
-    echo "[+] Installing ..."
+    echo "[+] Installing compiled file from temp..."
     run_command "make altinstall"
 
     echo "[+] Moving data ..."
