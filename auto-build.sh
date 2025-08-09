@@ -74,7 +74,7 @@ prepare_build() {
     echo -e "${GREEN}-> sed -i -e 's|^#.* /usr/local/bin/python|#!/usr/bin/python|' Python-3.10.18/Lib/cgi.py
  ${RESET}"
     sed -i -e "s|^#.* /usr/local/bin/python|#\!/usr/bin/python|" Python-${TARGET_PYTHON_VERSION}/Lib/cgi.py
-'
+
 }
 
 run_build() {
