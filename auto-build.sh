@@ -71,7 +71,10 @@ prepare_build() {
     run_command "mkdir /tmp/usr"
 
     echo "[+] Patching file ..."
-    run_command 'sed -i -e "s|^#.* /usr/local/bin/python|#!/usr/bin/python|" Lib/cgi.py'
+    echo -e "${GREEN}-> sed -i -e 's|^#.* /usr/local/bin/python|#!/usr/bin/python|' Python-3.10.18/Lib/cgi.py
+ ${RESET}"
+    sed -i -e "s|^#.* /usr/local/bin/python|#\!/usr/bin/python|" Python-${TARGET_PYTHON_VERSION}/Lib/cgi.py
+'
 }
 
 run_build() {
