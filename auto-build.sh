@@ -26,14 +26,14 @@ run_command() {
 }
 
 clean_env() {
-    echo "Delete the old directory and source code..."
+    echo "[+] Delete the old directory and source code..."
     run_command "rm -rf usr"
     run_command "rm -rf ${TARGET_PYTHON_TARBALL}"
     run_command "rm -rf Python-${TARGET_PYTHON_VERSION}"
 }
 
 install_dep() {
-    echo "Installing dependencies ..."
+    echo "[+] Installing dependencies ..."
     run_command "sudo apt update -y"
     run_command "sudo apt install -y \
     build-essential \
@@ -56,22 +56,24 @@ install_dep() {
 }
 
 prepare_build() {
-    echo "Downloading source tarball ${TARGET_PYTHON_TARBALL} ..."
+    echo "[+] Downloading source tarball ${TARGET_PYTHON_TARBALL} ..."
     run_command "wget ${TARGET_PYTHON_TARBALL_URL}"
 
-    echo "Extracting source tarball ..."
+    echo "[+] Extracting source tarball ..."
     run_command "tar -xJf  ${TARGET_PYTHON_TARBALL}"
 
-    echo "Pathing file ..."
+    echo "[+] Creating directory ..."
+    run_command "mkdir usr"
 }
 
 run_build() {
-    echo "Starting build ..."
-
+    echo "[+] Entering directory Python-${TARGET_PYTHON_VERSION}"
     run_command "cd Python-${TARGET_PYTHON_VERSION}"
+
+    echo "[+] Running python${TARGET_PYTHON_VERSION} configure script ..."
     run_command "./configure \
 	ax_cv_c_float_words_bigendian=no \
-	--prefix=/usr \
+	--prefix=../usr \
 	--enable-shared \
 	--with-computed-gotos \
 	--enable-optimizations \
@@ -84,6 +86,7 @@ run_build() {
 	--without-ensurepip \
 	--with-tzpath=/usr/share/zoneinfo"
 
+   echo "[+] Starting build ..."
    run_command "make -j$(nproc)"
 }
 
