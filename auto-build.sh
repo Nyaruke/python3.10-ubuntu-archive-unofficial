@@ -134,9 +134,10 @@ create_package() {
 }
 
 install_package() {
-    echo "Installing the created package?(y): "
+    printf "Installing the created package?(y): "
     read ASK_INSTALL
     if  [ "$ASK_INSTALL" != "n" ]; then
+        echo ""
         run_command "sudo dpkg -i python3.10.deb"
     fi
 }
