@@ -63,7 +63,7 @@ prepare_build() {
     run_command "tar -xJf  ${TARGET_PYTHON_TARBALL}"
 
     echo "[+] Creating directory ..."
-    run_command "mkdir usr"
+    run_command "mkdir Python-${TARGET_PYTHON_VERSION}/usr"
 }
 
 run_build() {
@@ -73,7 +73,7 @@ run_build() {
     echo "[+] Running python${TARGET_PYTHON_VERSION} configure script ..."
     run_command "./configure \
 	ax_cv_c_float_words_bigendian=no \
-	--prefix=../usr \
+	--prefix=./usr \
 	--enable-shared \
 	--with-computed-gotos \
 	--enable-optimizations \
