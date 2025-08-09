@@ -100,8 +100,8 @@ run_build() {
    echo "[+] Starting build ..."
    run_command "make -j$(nproc)"
 
-   echo "[+] Leaving directory Python-${TARGET_PYTHON_VERSION}"
-   run_command "cd .."
+   #echo "[+] Leaving directory Python-${TARGET_PYTHON_VERSION}"
+   #run_command "cd .."
 }
 
 create_package() {
