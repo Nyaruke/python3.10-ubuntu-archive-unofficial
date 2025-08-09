@@ -112,6 +112,9 @@ create_package() {
 
     echo "[+] Installing compiled file from temp..."
     run_command "make altinstall"
+    
+    echo "[+] Leaving directory Python-${TARGET_PYTHON_VERSION}"
+    run_command "cd .."
 
     echo "[+] Moving data ..."
     run_command "mv /tmp/usr ./"
