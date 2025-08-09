@@ -57,7 +57,32 @@ install_dep() {
 
 prepare_build() {
     echo "Downloading source tarball ${TARGET_PYTHON_TARBALL} ..."
-    wget "${TARGET_PYTHON_TARBALL_URL}"
+    run_command "wget ${TARGET_PYTHON_TARBALL_URL}"
+
+    echo "Extracting source tarball ..."
+    run_command "tar -xJf  ${TARGET_PYTHON_TARBALL}"
+
+    echo "Pathing file ..."
+}
+
+run_build() {
+    echo "Starting build ..."
+
+    run_command "./configure \
+	ax_cv_c_float_words_bigendian=no \
+	--prefix=/usr \
+	--enable-shared \
+	--with-computed-gotos \
+	--enable-optimizations \
+	--with-lto=no \
+	--enable-ipv6 \
+	--with-system-expat \
+	--with-dbmliborder=gdbm:ndbm \
+	--with-system-libmpdec \
+	--enable-loadable-sqlite-extensions \
+	--without-ensurepip \
+	--with-tzpath=/usr/share/zoneinfo"
+
 }
 
 main() {
