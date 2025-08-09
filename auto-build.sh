@@ -69,6 +69,9 @@ prepare_build() {
 
     echo "[+] Creating directory ..."
     run_command "mkdir /tmp/usr"
+
+    echo "[+] Patching file ..."
+    run_command 'sed -i -e "s|^#.* /usr/local/bin/python|#!/usr/bin/python|" Lib/cgi.py'
 }
 
 run_build() {
