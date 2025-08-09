@@ -97,7 +97,7 @@ run_build() {
 	--with-dbmliborder=gdbm:ndbm \
 	--with-system-libmpdec \
 	--enable-loadable-sqlite-extensions \
-	--without-ensurepip \
+	--with-ensurepip=install \
 	--with-tzpath=/usr/share/zoneinfo"
 
    echo "[+] Starting build ..."
