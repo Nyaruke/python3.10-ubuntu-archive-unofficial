@@ -68,6 +68,7 @@ prepare_build() {
 run_build() {
     echo "Starting build ..."
 
+    run_command "cd Python-${TARGET_PYTHON_VERSION}"
     run_command "./configure \
 	ax_cv_c_float_words_bigendian=no \
 	--prefix=/usr \
@@ -83,6 +84,7 @@ run_build() {
 	--without-ensurepip \
 	--with-tzpath=/usr/share/zoneinfo"
 
+   run_command "make -j$(nproc)"
 }
 
 main() {
@@ -90,6 +92,7 @@ main() {
     clean_env
     install_dep
     prepare_build
+    run_build
 }
 
 main
