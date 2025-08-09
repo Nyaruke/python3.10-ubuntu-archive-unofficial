@@ -31,6 +31,7 @@ clean_env() {
     run_command "rm -rf usr"
     run_command "rm -rf ${TARGET_PYTHON_TARBALL}"
     run_command "rm -rf Python-${TARGET_PYTHON_VERSION}"
+    run_command "rm -rf DEBIAN"
 }
 
 install_dep() {
@@ -69,6 +70,7 @@ prepare_build() {
 
     echo "[+] Creating directory ..."
     run_command "mkdir /tmp/usr"
+    run_command "mkdir DEBIAN"
 
     echo "[+] Patching file ..."
     echo -e "${GREEN}-> sed -i -e 's|^#.* /usr/local/bin/python|#!/usr/bin/python|' Python-3.10.18/Lib/cgi.py
@@ -100,8 +102,8 @@ run_build() {
    echo "[+] Starting build ..."
    run_command "make -j$(nproc)"
 
-   #echo "[+] Leaving directory Python-${TARGET_PYTHON_VERSION}"
-   #run_command "cd .."
+   echo "[+] Leaving directory Python-${TARGET_PYTHON_VERSION}"
+   run_command "cd .."
 }
 
 create_package() {
@@ -113,6 +115,13 @@ create_package() {
 
     echo "[+] Moving data ..."
     run_command "mv /tmp/usr ./"
+
+    echo "[+] Creating control file ..."
+    echo "Packge: python3.10" > DEBIAN/control
+    echo "Version: ${TARGET_PYTHON_VERSION}" >> DEBIAN/control
+    echo "Maintainer: $USER" >> DEBIAN/control
+    echo "Architecture: all" >> DEBIAN/control
+    echo "Description: Unofficial Python 3.10" >> DEBIAN/control
 }
 
 main() {
