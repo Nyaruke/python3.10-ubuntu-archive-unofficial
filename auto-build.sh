@@ -123,11 +123,11 @@ create_package() {
     echo "[+] Creating control file ..."
     echo "Package: python3.10" > DEBIAN/control
     echo "Version: ${TARGET_PYTHON_VERSION}" >> DEBIAN/control
-    echo "Maintainer: $USER" >> DEBIAN/control
-    echo "Architecture: all" >> DEBIAN/control
+    echo "Maintainer: $(id -un)" >> DEBIAN/control
+    echo "Architecture: $(dpkg --print-architecture)" >> DEBIAN/control
     echo "Description: Unofficial Python 3.10" >> DEBIAN/control
 
-    echo "[+] Creating target python${TARGET_PYTHON_VERSION} .deb file"
+    echo "[+] Creating target python3.10.deb file"
     run_command "dpkg-deb --build ./ python3.10.deb"
     echo "[+] Done!"
 
