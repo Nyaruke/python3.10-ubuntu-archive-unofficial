@@ -13,14 +13,11 @@ setup_color() {  # Activate color codes.
 }
 
 run_command() {
-    TARGET_CMD="$1"
-
-    echo -e "${GREEN}-> $TARGET_CMD ${RESET}"
-    $TARGET_CMD
-
-    TARGET_CMD_EXIT_STAT="$?"
-    if [ "$TARGET_CMD_EXIT_STAT" != "0" ]; then
-        echo -e "${RED}[!!] ERROR: Command failed. exit code: $TARGET_CMD_EXIT_STAT $RESET"
+    echo -e "${GREEN}-> $* ${RESET}"
+    "$@"
+    local ec=$?
+    if [ $ec -ne 0 ]; then
+        echo -e "${RED}[!!] ERROR: Command failed. exit code: $ec ${RESET}"
         exit 1
     fi
 }
