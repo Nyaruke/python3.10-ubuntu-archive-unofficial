@@ -8,3 +8,6 @@ $ git clone https://github.com/Nyaruke/python3.10-ubuntu-archive-unofficial
 $ cd python3.10-ubuntu-archive-unofficial
 $ bash auto-build.sh
 ```
+
+## 既知の問題
+- /usr/bin/pip3.10が動作しません。ここからの呼び出しをあまり使うことはないと思いますが、`/usr/bin/python3.10 -m pip`かvenvを作成することで対処できます。
