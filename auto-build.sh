@@ -120,6 +120,7 @@ create_package() {
     run_command "mv Python-${TARGET_PYTHON_VERSION}/usr ./"
 
     echo "[+] Creating control file ..."
+    echo "Writing DEBIAN/control ..."
     echo "Package: python3.10" > DEBIAN/control
     echo "Version: ${TARGET_PYTHON_VERSION}" >> DEBIAN/control
     echo "Maintainer: $(id -un)" >> DEBIAN/control
