@@ -70,7 +70,6 @@ prepare_build() {
     run_command "tar -xJf  ${TARGET_PYTHON_TARBALL}"
 
     echo "[+] Creating directory ..."
-    run_command "mkdir /tmp/usr"
     run_command "mkdir DEBIAN"
 
     echo "[+] Patching file ..."
