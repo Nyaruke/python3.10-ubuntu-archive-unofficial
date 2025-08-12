@@ -111,7 +111,7 @@ create_package() {
     run_command "cd Python-${TARGET_PYTHON_VERSION}"
 
     echo "[+] Installing compiled file from temp..."
-    run_command "make install DESTDIR=$PWD"
+    run_command "make altinstall DESTDIR=$PWD"
     
     echo "[+] Leaving directory Python-${TARGET_PYTHON_VERSION}"
     run_command "cd .."
