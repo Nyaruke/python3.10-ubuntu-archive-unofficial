@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# VAR
 TARGET_PYTHON_VERSION="3.10.18"
 TARGET_PYTHON_TARBALL="Python-${TARGET_PYTHON_VERSION}.tar.xz"
 TARGET_PYTHON_TARBALL_URL="https://www.python.org/ftp/python/${TARGET_PYTHON_VERSION}/${TARGET_PYTHON_TARBALL}"
@@ -87,7 +88,7 @@ run_build() {
     echo "[+] Running python${TARGET_PYTHON_VERSION} configure script ..."
     run_command "./configure \
 	ax_cv_c_float_words_bigendian=no \
-	--prefix=/tmp/usr \
+	--prefix=/usr \
 	--enable-shared \
 	--with-computed-gotos \
 	--enable-optimizations \
@@ -112,20 +113,20 @@ create_package() {
     run_command "cd Python-${TARGET_PYTHON_VERSION}"
 
     echo "[+] Installing compiled file from temp..."
-    run_command "make altinstall"
+    run_command "make install DESTDIR=$PWD"
     
     echo "[+] Leaving directory Python-${TARGET_PYTHON_VERSION}"
     run_command "cd .."
 
     echo "[+] Moving data ..."
-    run_command "mv /tmp/usr ./"
+    run_command "mv Python-${TARGET_PYTHON_VERSION}/usr ./"
 
     echo "[+] Creating control file ..."
-    echo "Package: python3.10" > DEBIAN/control
-    echo "Version: ${TARGET_PYTHON_VERSION}" >> DEBIAN/control
-    echo "Maintainer: $(id -un)" >> DEBIAN/control
-    echo "Architecture: $(dpkg --print-architecture)" >> DEBIAN/control
-    echo "Description: Unofficial Python 3.10" >> DEBIAN/control
+    run_command 'echo "Package: python3.10" > DEBIAN/control'
+    run_command 'echo "Version: ${TARGET_PYTHON_VERSION}" >> DEBIAN/control'
+    run_command 'echo "Maintainer: $(id -un)" >> DEBIAN/control'
+    run_command 'echo "Architecture: $(dpkg --print-architecture)" >> DEBIAN/control'
+    run_command 'echo "Description: Unofficial Python 3.10" >> DEBIAN/control'
 
     echo "[+] Creating target python3.10.deb file"
     run_command "dpkg-deb --build ./ python3.10.deb"
