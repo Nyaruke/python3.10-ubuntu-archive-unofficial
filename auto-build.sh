@@ -28,7 +28,7 @@ run_command() {
 
 clean_env() {
     echo "[+] Delete the old directory and source code..."
-    run_command "rm -rf /tmp/usr"
+#   run_command "rm -rf /tmp/usr"
     run_command "rm -rf usr"
     run_command "rm -rf ${TARGET_PYTHON_TARBALL}"
     run_command "rm -rf Python-${TARGET_PYTHON_VERSION}"
@@ -122,11 +122,11 @@ create_package() {
     run_command "mv Python-${TARGET_PYTHON_VERSION}/usr ./"
 
     echo "[+] Creating control file ..."
-    run_command 'echo "Package: python3.10" > DEBIAN/control'
-    run_command 'echo "Version: ${TARGET_PYTHON_VERSION}" >> DEBIAN/control'
-    run_command 'echo "Maintainer: $(id -un)" >> DEBIAN/control'
-    run_command 'echo "Architecture: $(dpkg --print-architecture)" >> DEBIAN/control'
-    run_command 'echo "Description: Unofficial Python 3.10" >> DEBIAN/control'
+    echo "Package: python3.10" > DEBIAN/control
+    echo "Version: ${TARGET_PYTHON_VERSION}" >> DEBIAN/control
+    echo "Maintainer: $(id -un)" >> DEBIAN/control
+    echo "Architecture: $(dpkg --print-architecture)" >> DEBIAN/control
+    echo "Description: Unofficial Python 3.10" >> DEBIAN/control
 
     echo "[+] Creating target python3.10.deb file"
     run_command "dpkg-deb --build ./ python3.10.deb"
