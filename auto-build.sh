@@ -28,7 +28,6 @@ run_command() {
 
 clean_env() {
     echo "[+] Delete the old directory and source code..."
-#   run_command "rm -rf /tmp/usr"
     run_command "rm -rf usr"
     run_command "rm -rf ${TARGET_PYTHON_TARBALL}"
     run_command "rm -rf Python-${TARGET_PYTHON_VERSION}"
