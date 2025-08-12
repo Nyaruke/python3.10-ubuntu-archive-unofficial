@@ -75,7 +75,7 @@ prepare_build() {
     echo "[+] Patching file ..."
     echo -e "${GREEN}-> sed -i -e 's|^#.* /usr/local/bin/python|#!/usr/bin/python|' Python-${TARGET_PYTHON_VERSION}/Lib/cgi.py
  ${RESET}"
-    sed -i -e "s|^#.* /usr/local/bin/python|#\!/usr/bin/python|" Python-${TARGET_PYTHON_VERSION}/Lib/cgi.py
+    sed -i -e "s|^#.* /usr/local/bin/python|#\!/usr/bin/python3.10|" Python-${TARGET_PYTHON_VERSION}/Lib/cgi.py
 
 }
 
